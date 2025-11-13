@@ -77,7 +77,7 @@ const Home = () => {
         className="flex gap-4 mb-8"
       >
         <a
-          href="https://linkedin.com/in/your-profile"
+          href="https://www.linkedin.com/in/vikasbharti07/"
           target="_blank"
           rel="noopener noreferrer"
           className="w-12 h-12 flex items-center justify-center rounded-full 
@@ -89,7 +89,7 @@ const Home = () => {
           <FaLinkedin size={22} />
         </a>
         <a
-          href="https://github.com/your-username"
+          href="https://github.com/vibh7"
           target="_blank"
           rel="noopener noreferrer"
           className="w-12 h-12 flex items-center justify-center rounded-full 
@@ -101,7 +101,7 @@ const Home = () => {
           <FaGithub size={22} />
         </a>
         <a
-          href="https://leetcode.com/your-username"
+          href="https://leetcode.com/u/vikasbhartilm10/"
           target="_blank"
           rel="noopener noreferrer"
           className="w-12 h-12 flex items-center justify-center rounded-full 
