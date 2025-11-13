@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Default Light */
+body {
+  @apply bg-gray-50 text-gray-900 transition-colors duration-300;
+}
+
+/* Dark Mode */
+.dark body {
+  @apply bg-gray-900 text-gray-100 transition-colors duration-300;
+}
+
+* {
+  @apply transition-colors duration-300;
+}
+
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  display: flex;
+  animation: scroll 20s linear infinite;
+}
+
+.group:hover .animate-scroll {
+  animation-play-state: paused; /* ⏸ pauses on hover */
+}
+
+.glow-icon {
+  transition: all 0.3s ease-in-out;
+}
+
+.dark .glow-icon {
+  filter: drop-shadow(0 0 8px currentColor);
+}
