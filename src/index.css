@@ -46,3 +46,87 @@ html {
 .dark .glow-icon {
   filter: drop-shadow(0 0 8px currentColor);
 }
+
+
+@keyframes neonPulse {
+  0% { filter: brightness(1); }
+  50% { filter: brightness(1.35); }
+  100% { filter: brightness(1); }
+}
+
+.neon-card {
+  animation: neonPulse 4s ease-in-out infinite;
+}
+
+.neon-border {
+  border: 2px solid transparent;
+  box-shadow:
+    0 0 12px rgba(0, 255, 255, 0.4),
+    0 0 24px rgba(0, 255, 255, 0.3),
+    0 0 36px rgba(0, 255, 255, 0.2);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.neon-glow {
+  position: relative;
+}
+
+.neon-glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 1rem;
+  padding: 2px;
+  background: linear-gradient(45deg, #150331, #075003);
+  mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  pointer-events: none;
+  opacity: 0.4;
+  transition: 0.3s ease;
+}
+
+.neon-glow:hover::before {
+  opacity: 1;
+}
+
+.group:hover .neon-border {
+  box-shadow:
+    0 0 15px rgba(0, 255, 255, 0.7),
+    0 0 30px rgba(0, 255, 255, 0.6),
+    0 0 45px rgba(0, 255, 255, 0.5),
+    inset 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+/* Nice thin scrollbar */
+.scrollbar-thin::-webkit-scrollbar {
+  height: 6px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.3);
+  border-radius: 10px;
+}
+
+.toolbar-btn {
+  @apply px-2 py-1 rounded bg-gray-300 dark:bg-gray-700 text-black dark:text-white text-sm hover:bg-gray-400 dark:hover:bg-gray-600 transition;
+}
+
+.active-btn {
+  @apply bg-blue-600 text-white font-semibold !important;
+}
+
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.neon-glow {
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.25),
+              0 0 15px rgba(255, 0, 255, 0.25);
+}

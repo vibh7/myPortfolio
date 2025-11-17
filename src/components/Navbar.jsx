@@ -1,17 +1,64 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FaMoon, FaSun, FaBars, FaTimes } from "react-icons/fa";
 import useTheme from "../hooks/useTheme";
-import logo from "../assets/logo.png"; // <-- add your logo here
+import logo from "../assets/logo.png";
+import { auth } from "../services/firebaseConfig";
+import { onAuthStateChanged } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-  const links = ["home", "about", "experience", "projects", "contact"];
+  const links = ["home", "about", "experience", "projects", "blog", "contact"];
+
   const { theme, toggleTheme } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  const navigate = useNavigate();
+  const ADMIN_EMAIL = import.meta.env.VITE_ADMIN_EMAIL;
+
+  let pressTimer;
+
+  // Detect logged-in admin
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (user) => {
+      if (user && user.email === ADMIN_EMAIL) setIsAdmin(true);
+      else setIsAdmin(false);
+    });
+    return unsub;
+  }, []);
+
+  // Smooth section scroll — works from ANY route
+  const scrollToSection = (id) => {
+    if (window.location.pathname !== "/") {
+      // Navigate home first
+      navigate(`/#${id}`);
+      return;
+    }
+
+    // Already on home — smooth scroll
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+
+  // Hidden long-press → Admin Login
+  const handleSecretPress = () => {
+    if (window.location.pathname === "/admin/login") navigate("/");
+    else navigate("/admin/login");
+  };
 
   return (
     <nav className="fixed w-full backdrop-blur-lg bg-gray-950/70 dark:bg-gray-900/70 text-gray-200 py-4 px-6 md:px-8 flex justify-between items-center z-50 shadow-md transition-colors duration-300">
-      {/* 🌀 Logo */}
-      <div className="flex items-center space-x-2 cursor-pointer select-none">
+
+      {/* Logo with Secret Press */}
+      <div
+        className="flex items-center space-x-2 cursor-pointer select-none"
+        onMouseDown={() => (pressTimer = setTimeout(handleSecretPress, 3000))}
+        onMouseUp={() => clearTimeout(pressTimer)}
+        onMouseLeave={() => clearTimeout(pressTimer)}
+
+        onTouchStart={() => (pressTimer = setTimeout(handleSecretPress, 3000))}
+        onTouchEnd={() => clearTimeout(pressTimer)}
+      >
         <img
           src={logo}
           alt="VB Logo"
@@ -19,32 +66,31 @@ const Navbar = () => {
         />
       </div>
 
-      {/* 🌐 Desktop Links */}
+      {/* Desktop Menu */}
       <ul className="hidden md:flex gap-8 items-center">
         {links.map((link) => (
           <li key={link}>
-            <a
-              href={`#${link}`}
+            <button
+              onClick={() => scrollToSection(link)}
               className="hover:text-blue-400 capitalize transition-colors duration-200"
             >
               {link}
-            </a>
+            </button>
           </li>
         ))}
       </ul>
 
-      {/* ☀️🌙 Theme toggle + Hamburger */}
+      {/* Theme toggle + Mobile menu button */}
       <div className="flex items-center gap-4">
         <button
           onClick={toggleTheme}
           className="text-blue-400 hover:text-blue-300 transition-colors duration-200 text-xl"
-          title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
           aria-label="Toggle theme"
         >
           {theme === "dark" ? <FaSun /> : <FaMoon />}
         </button>
 
-        {/* 📱 Mobile Menu Icon */}
+        {/* Mobile menu toggle */}
         <button
           className="md:hidden text-2xl text-gray-200 hover:text-blue-300 transition-colors duration-200"
           onClick={() => setMenuOpen((s) => !s)}
@@ -54,7 +100,7 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* 📋 Mobile Menu */}
+      {/* Mobile Menu */}
       <div
         className={`md:hidden fixed top-[64px] left-0 w-full z-40 transform transition-all duration-300 ${
           menuOpen
@@ -66,17 +112,19 @@ const Navbar = () => {
           <ul className="flex flex-col items-center gap-4">
             {links.map((link) => (
               <li key={link} className="w-full">
-                <a
-                  href={`#${link}`}
-                  onClick={() => setMenuOpen(false)}
+                <button
+                  onClick={() => {
+                    setMenuOpen(false);
+                    scrollToSection(link);
+                  }}
                   className="block w-full text-center py-3 text-gray-800 dark:text-gray-200 hover:text-blue-500 transition-colors duration-200 capitalize"
                 >
                   {link}
-                </a>
+                </button>
               </li>
             ))}
 
-            {/* Theme toggle inside mobile menu */}
+            {/* Theme Toggle in Mobile */}
             <li className="w-full pt-2 border-t border-gray-200/20 dark:border-gray-700/30">
               <button
                 onClick={toggleTheme}
@@ -96,6 +144,7 @@ const Navbar = () => {
           </ul>
         </div>
       </div>
+
     </nav>
   );
 };
