@@ -1,8 +1,11 @@
+// src/pages/BlogDetail.jsx
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getBlogBySlug } from "../services/blogService";
 import { generateGradient } from "../utils/gradient";
-const BlogDetail = () => {
+import BlogDisplay from "../components/BlogDisplay"; // IMPORT HERE
+
+const BlogDetails = () => {
   const { slug } = useParams();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -30,7 +33,7 @@ const BlogDetail = () => {
 
   return (
     <div className="pt-24 max-w-4xl mx-auto dark:text-white px-4">
-
+      {/* Header Section */}
       {post.imageUrl ? (
         <img
           src={post.imageUrl}
@@ -42,7 +45,6 @@ const BlogDetail = () => {
           className="w-full h-72 rounded-xl mb-6 flex items-center justify-center neon-card"
           style={{ background: generateGradient(post.slug || post.title) }}
         >
-
           <h1 className="text-white text-4xl font-bold px-4 text-center drop-shadow">
             {post.title}
           </h1>
@@ -55,13 +57,10 @@ const BlogDetail = () => {
         {new Date(post.createdAt).toLocaleDateString()}
       </p>
 
-      {/* Render HTML from Tiptap */}
-      <div
-        className="prose dark:prose-invert max-w-none"
-        dangerouslySetInnerHTML={{ __html: post.content }}
-      />
+      {/* Use BlogDisplay for content rendering */}
+      <BlogDisplay htmlContent={post.content} />
     </div>
   );
 };
 
-export default BlogDetail;
+export default BlogDetails;

@@ -130,3 +130,63 @@ html {
   box-shadow: 0 0 8px rgba(255, 255, 255, 0.25),
               0 0 15px rgba(255, 0, 255, 0.25);
 }
+
+/* Inline code */
+.prose code:not(pre code),
+.blog-content code:not(pre code),
+.ProseMirror code:not(pre code) {
+  background-color: #f3f4f6;
+  color: #111827;
+}
+
+.dark .prose code:not(pre code),
+.dark .blog-content code:not(pre code),
+.dark .ProseMirror code:not(pre code) {
+  background-color: #374151;
+  color: #e5e7eb;
+}
+
+/* Code blocks */
+.ProseMirror pre,
+.prose pre,
+.blog-content pre {
+  background-color: #111827;
+  color: #e5e7eb;
+  white-space: pre;        /* or pre-wrap if you want wrapping */
+  tab-size: 2;  
+  border-radius: 0.5rem;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.ProseMirror pre code,
+.prose pre code,
+.blog-content pre code {
+  background: transparent;
+  color: inherit;
+  font-family: "Fira Code", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  font-size: 0.9rem;
+}
+
+/* Put this in a global CSS (e.g. index.css / App.css) */
+
+/* Preserve indentation and newlines for code blocks when viewing */
+.blog-content pre,
+.prose pre {
+  white-space: pre;      /* or pre-wrap if you want long lines to wrap */
+  tab-size: 2;           /* match your editor tabSize */
+}
+
+/* Optional: ensure inline code doesn’t look broken */
+.blog-content code:not(pre code),
+.prose code:not(pre code) {
+  background-color: #f3f4f6;
+  color: #111827;
+}
+
+.dark .blog-content code:not(pre code),
+.dark .prose code:not(pre code) {
+  background-color: #374151;
+  color: #e5e7eb;
+}
