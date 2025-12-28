@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
 const useTheme = () => {
-  // ✅ Default to dark mode if no theme is stored
+  // ✅ Default to light mode if no theme is stored
   const [theme, setTheme] = useState(() => {
     const storedTheme = localStorage.getItem("theme");
-    return storedTheme ? storedTheme : "dark";
+    return storedTheme ? storedTheme : "light";
   });
 
   // ✅ Toggle between dark and light mode

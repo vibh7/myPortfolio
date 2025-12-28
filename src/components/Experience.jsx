@@ -7,16 +7,16 @@ const Experience = () => (
       </h3>
       <p className="dark:text-gray-400 text-gray-600 mb-2">Jul 2024 - Present</p>
       <ul className="list-disc dark:text-gray-300 text-gray-700 pl-6 space-y-1">
-        <li>Refactored legacy React dashboards in the internal Q-SYS Cloud Monitoring Portal into functional components using
-React.memo and useMemo, cutting unnecessary re-renders by 30% and improving real-time telemetry updates.</li>
-        <li>Optimized backend analytics services that power cloud-side metrics aggregation by replacing deeply nested SQL subqueries with
-Common Table Expressions (CTEs), improving query performance 8× on customer-facing endpoints.</li>
-        <li>Converted blocking middleware to non-blocking asynchronous logic with async/await, reducing event loop latency and
-improving the responsiveness of telemetry APIs that process thousands of device updates per minute.</li>
-        <li>Engineered diagnostic Lua modules within Q-SYS Designer to monitor real-time packet flow between Q-SYS video codecs,
-enabling rapid identification of packet loss, jitter, and network sync issues directly from the Q-SYS control interface.</li>
-        <li>Designed and implemented a CPU performance monitoring tool to track usage per process, enabling better system resource
-allocation and improving overall device performance and reliability.</li>
+        <li>Modernized legacy React dashboards in the Q-SYS Cloud Monitoring Portal into functional components,
+using React.memo and useMemo to reduce re-renders and stabilize real-time telemetry views.</li>
+        <li>Designed and documented a microservices architecture that improved code maintainability and reduced deployment
+time by 30%.</li>
+        <li>Improved database performance with targeted indexing and query tuning, cutting average query execution
+time by 50% and lowering server load by 35%.</li>
+        <li>Developed Lua diagnostic modules in Q-SYS Designer to trace packet flow between video codecs, enabling faster
+detection of packet loss, jitter, and network synchronization issues from the control UI.</li>
+        <li>Built a CPU performance monitoring service to track per-process usage, enhancing observability, resource
+allocation, and device reliability.</li>
       </ul>
     </div>
   </div>

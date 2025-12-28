@@ -27,7 +27,11 @@ const Home = () => {
         transition={{ duration: 1 }}
         className="text-5xl md:text-6xl font-extrabold mb-4 dark:text-white text-gray-900"
       >
-        Hi, I'm <span className="text-blue-500 dark:text-blue-400">Vikas Bharti</span> 👋
+        Hi, I'm{" "}
+        <span className="text-blue-500 dark:text-blue-400">
+          <span className="hidden sm:inline">Vikas Bharti</span>
+          <span className="sm:hidden">Vikas</span>
+        </span> 👋
       </motion.h1>
 
 
@@ -40,13 +44,13 @@ const Home = () => {
       >
         <TypeAnimation
           sequence={[
-            "Java Fullstack Developer 💻",
+            "Node.js Developer 💻",
             2000,
             "Problem Solver 🧠",
             2000,
-            "Tech Enthusiast 🚀",
+            "Java Fullstack Developer 💻",
             2000,
-             "Node.js Developer 💻",
+            "Tech Enthusiast 🚀",
             2000,
           ]}
           wrapper="span"
